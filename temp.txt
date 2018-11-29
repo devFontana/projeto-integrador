@@ -1,0 +1,22 @@
+Schema::create('ambientes', function (Blueprint $table) {
+            $table->increments('idAmbiente');
+            $table->string('nome', 100);
+            $table->integer('ambiente_id');
+            $table->string('ambiente_tipo');
+            $table->integer('idLocalizacao');
+            $table->foreign('idLocalizacao')->references('id')->on('localizacoes');
+            $table->timestamps();
+        });
+
+Schema::create('laboratorios', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('nroComputadores');
+            $table->timestamps();
+        });
+
+Schema::create('salas', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('nroVagas');
+            $table->boolean('temProjetor');
+            $table->timestamps();
+        });
