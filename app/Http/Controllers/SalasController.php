@@ -119,8 +119,13 @@ class SalasController extends Controller
      */
     public function destroy($id)
     {
-        $sala = Sala::find($id);
-        $sala->delete();
-        return redirect('/sala')->with('success', 'Sala excluida com sucesso.');
+        try{
+            $sala = Sala::find($id);
+            $sala->delete();
+            return redirect('/sala')->with('success', 'Sala excluida com sucesso.');
+        }catch (\Illuminate\Database\QueryException $e){
+            return redirect('/sala')->with('erro', 'Não foi possível excluir a sala.');
+        }
+        
     }
 }

@@ -110,8 +110,13 @@ class LaboratorioController extends Controller
      */
     public function destroy($id)
     {
-        $lab = Laboratorio::find($id);
-        $lab->delete();
-        return redirect('/laboratorio')->with('success', 'Laboratório excluido com sucesso.');
+        try{
+            $lab = Laboratorio::find($id);
+            $lab->delete();
+            return redirect('/laboratorio')->with('success', 'Laboratório excluido com sucesso.');
+        }catch (\Illuminate\Database\QueryException $e){
+            return redirect('/laboratorio')->with('erro', 'Não foi possível excluir o laboratório.');
+        }
+        
     }
 }

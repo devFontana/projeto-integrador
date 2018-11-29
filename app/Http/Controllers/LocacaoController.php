@@ -128,8 +128,13 @@ class LocacaoController extends Controller
      */
     public function destroy($id)
     {
-        $locacao = Locacao::find($id);
-        $locacao->delete();
-        return redirect('/locacao')->with('success', 'Locação cancelada com sucesso.');
+        try{
+            $locacao = Locacao::find($id);
+            $locacao->delete();
+            return redirect('/locacao')->with('success', 'Locação cancelada com sucesso.');
+        }catch (\Illuminate\Database\QueryException $e){
+            return redirect('/locacao')->with('erro', 'Não foi possível cancelar a locação.');
+        }
+        
     }
 }

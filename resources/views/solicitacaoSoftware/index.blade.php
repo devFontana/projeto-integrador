@@ -67,7 +67,7 @@
                               @endif
                               @if($s->status == 'Solicitado' && Auth::user()->type != 'a')
                                 <a href="/solicitacao-software/{{$s->id}}/editar" class="btn btn-sm btn-outline-warning">Cancelar</a>
-                                <a class="botaoExcluir btn btn-sm btn-outline-danger" href="#" data-toggle="modal" data-target="#modalExclusao" data-id="{{ $s->id }}">Excluir</a>
+                                
                               @endif
                             {!! Form::close() !!}                        
                           </td>

@@ -138,10 +138,15 @@ class SolicitacaoSoftwareController extends Controller
      */
     public function destroy($id)
     {
-        $solicitacao = SolicitacaoSoftware::find($id);
-        if($solicitacao->status == 'Solicitado') {
-            $solicitacao->delete();
+        try{
+            $solicitacao = SolicitacaoSoftware::find($id);
+            if($solicitacao->status == 'Solicitado') {
+                $solicitacao->delete();
+            }
+            return redirect('solicitacao-software')->with('success', 'Solicitação cancelada com sucesso');
+        }catch (\Illuminate\Database\QueryException $e){
+            return redirect('solicitacao-software')->with('erro','Não foi cancelar a solicitação.');
         }
-        return redirect('solicitacao-software')->with('success','Solicitação removida com sucesso');
+        
     }
 }

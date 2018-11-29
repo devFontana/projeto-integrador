@@ -104,8 +104,13 @@ class LocalizacaoController extends Controller
      */
     public function destroy($id)
     {
-        $localizacao = Localizacao::find($id);
-        $localizacao->delete();
-        return redirect('/localizacao')->with('success', 'Localização excluida com sucesso.');
+        try{
+            $localizacao = Localizacao::find($id);
+            $localizacao->delete();
+            return redirect('/localizacao')->with('success', 'Localização excluida com sucesso.');
+        }catch (\Illuminate\Database\QueryException $e){
+            return redirect('/localizacao')->with('erro', 'Não foi possível excluir a localização.');
+        }
+        
     }
 }

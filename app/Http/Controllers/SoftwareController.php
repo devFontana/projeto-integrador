@@ -107,8 +107,13 @@ class SoftwareController extends Controller
      */
     public function destroy($id)
     {
-        $software = Software::find($id);
-        $software->delete();
-        return redirect('\software')->with('success', 'Software excluido com sudesso.');
+        try{
+            $software = Software::find($id);
+            $software->delete();
+            return redirect('\software')->with('success', 'Software excluido com sucesso.');
+        }catch (\Illuminate\Database\QueryException $e){
+            return redirect('\software')->with('erro', 'Não foi possível excluir o software.');
+        }
+        
     }
 }
